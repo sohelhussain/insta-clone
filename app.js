@@ -10,7 +10,8 @@ const expressSession = require('express-session');
 const path = require('path');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
-
+const emailConsumer = require('./kafka/emailConsumer');
+emailConsumer.run().catch(console.error);
 
 
 
