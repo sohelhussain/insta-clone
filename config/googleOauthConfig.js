@@ -11,13 +11,15 @@ passport.use(
     },
     async function (accessToken, refreshToken, profile, cb) {
       try {
-        let user = await userModel.findOne({ email: profile.emails[0].value });
+        let user = await userModel.findOne({ googleId: profile.id });
         if (!user) {
           user = new userModel({
-            name: profile.displayName,
+            googleId: profile.id,
             email: profile.emails[0].value,
-          });
-          await user.save();
+            name: profile.displayName,
+            username: profile.emails[0].value.split('@')[0] || `user_${Date.now()}`, // Generate a username
+        });
+        await user.save();
         }
         cb(null, user);
       } catch (error) {

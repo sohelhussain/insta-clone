@@ -5,6 +5,7 @@ require('./config/googleOauthConfig');
 const db = require('./config/mongooseConnect');
 const authRouter = require('./router/auth');
 const indexRouter = require('./router/index');
+const {userModel} = require('./models/userModel');
 const expressSession = require('express-session');
 const path = require('path');
 const passport = require('passport');
@@ -22,6 +23,8 @@ app.use(expressSession({
     saveUninitialized: false,
     secret: process.env.SESSION_SECRET
 }));
+passport.serializeUser(userModel.serializeUser());
+passport.deserializeUser(userModel.deserializeUser());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cookieParser());
