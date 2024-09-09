@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
-require('')
+require('./config/googleOauthConfig');
+const db = require('./config/mongooseConnect');
+const authRouter = require('./router/auth');
+const indexRouter = require('./router/index');
 const expressSession = require('express-session');
 const path = require('path');
 const passport = require('passport');
@@ -24,9 +27,8 @@ app.use(passport.session());
 app.use(cookieParser());
 
 
-app.get('/', (req, res) => {
- res.send('this file are working');
-})
+app.use('/', indexRouter)
+app.use("/auth", authRouter);
 
 
 app.listen(3000, () => console.log(`server are listening http://localhost:3000/`));
