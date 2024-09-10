@@ -105,7 +105,7 @@ module.exports.registerController = async (req, res) => {
 
       // Authenticate the user after registration
       passport.authenticate("local")(req, res, () => {
-        res.redirect("/feed");
+        res.redirect("/user/feed");
       });
     });
   } catch (error) {
@@ -148,12 +148,13 @@ module.exports.forgotPassword = async (req, res) => {
   } catch (err) {
     console.error("Error processing password reset request:", err);
     res.status(500).send("Error processing password reset request");
-  } finally {
-    await producer.disconnect(); // Disconnect after sending
-  }
+  } 
+  // finally {
+  //   await producer.disconnect(); // Disconnect after sending
+  // }
 };
 
-// resetPassword.js
+//! resetPassword.js
 module.exports.resetPassword = async (req, res) => {
   const { error } = validatePasswordReset({ password: req.body.password });
   if (error) return res.status(400).send(error.details[0].message);
@@ -216,15 +217,10 @@ module.exports.resetPassword = async (req, res) => {
   } catch (err) {
     console.error("Error resetting password:", err);
     res.status(500).send("Error resetting password");
-  } finally {
-    await producer.disconnect(); // Disconnect after sending
-  }
+  } 
+  // finally {
+  //   await producer.disconnect(); // Disconnect after sending
+  // }
 };
 
-module.exports.feedController = (req, res) => {
-  const stories = [];
-  const user = { picture: "asdf" };
-  const posts = [];
-  res.render("feed", { footer: false });
-  // res.send('index')
-};
+
