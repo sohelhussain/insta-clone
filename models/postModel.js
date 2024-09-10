@@ -36,12 +36,12 @@ const postSchema = mongoose.Schema({
 // Joi Validation Schema for Post
 const validatePost = (post) => {
   const schema = Joi.object({
-    user: Joi.string().hex().length(24).required(), // Must be a valid ObjectId
+    user: Joi.string().hex().required(), // Must be a valid ObjectId
     caption: Joi.string().max(500).optional(),
-    like: Joi.array().items(Joi.string().hex().length(24)), // Array of ObjectIds
+    like: Joi.array().items(Joi.string().hex()), // Array of ObjectIds
     comments: Joi.array().items(Joi.string().optional()), // Array of strings (assuming comment text)
     date: Joi.date().optional(),
-    shares: Joi.array().items(Joi.string().hex().length(24)), // Array of ObjectIds
+    shares: Joi.array().items(Joi.string().hex()), // Array of ObjectIds
     picture: Joi.string().optional()
   });
 

@@ -51,11 +51,11 @@ const validateUser = (user) => {
         picture: Joi.string().optional(),
         contact: Joi.string().optional(),
         bio: Joi.string().max(500).optional(),
-        stories: Joi.array().items(Joi.string().hex().length(24)),
-        saved: Joi.array().items(Joi.string().hex().length(24)),
-        posts: Joi.array().items(Joi.string().hex().length(24)),
-        followers: Joi.array().items(Joi.string().hex().length(24)),
-        following: Joi.array().items(Joi.string().hex().length(24)),
+        stories: Joi.array().items(Joi.string().hex()),
+        saved: Joi.array().items(Joi.string().hex()),
+        posts: Joi.array().items(Joi.string().hex()),
+        followers: Joi.array().items(Joi.string().hex()),
+        following: Joi.array().items(Joi.string().hex()),
         resetPasswordToken: Joi.string().optional(),
         resetPasswordExpires: Joi.date().optional()
     });

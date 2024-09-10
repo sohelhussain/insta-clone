@@ -24,6 +24,14 @@ const flash = require('connect-flash');
 app.set('view engine', 'ejs');
 app.use(logger("short"));  
 app.use(flash());
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    console.error(err.stack);
+    res.status(statusCode).json({
+        success: false,
+        message: err.message || 'Internal Server Error',
+    });
+});
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended:true}));
 app.use(express.json());
